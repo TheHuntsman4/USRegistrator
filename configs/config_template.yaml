@@ -1,6 +1,11 @@
 project: "monai-3d-registration"
 image_size: [64, 64, 64]
 
+wandb:
+  enabled: True
+  project: "usregistrator"
+  offline: False
+
 train_dataset:
   name: synthetic_ellipsoids
   image_size: [64, 64, 64]
@@ -42,3 +47,4 @@ training:
   amp: true
   val_every: 1
   seed: 42
+
