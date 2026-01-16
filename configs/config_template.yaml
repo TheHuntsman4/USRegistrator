@@ -4,6 +4,7 @@ image_size: [64, 64, 64]
 wandb:
   enabled: True
   project: "usregistrator"
+  run_name: "globalnet3d"
   offline: False
 
 train_dataset:
