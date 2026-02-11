@@ -71,7 +71,7 @@ USRegistrator implements a DeepReg-*inspired* approach: the same training pipeli
 
 The implementation consists of three parts:
 
-### 3.1. Synthetic DVF Dataset (`datasets.py`)
+### 3.1. Synthetic DVF Dataset (`datasets/deepreg_synthetic.py`)
 
 The `DeepRegLikeDVFSyntheticGenerator` class:
 

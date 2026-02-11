@@ -136,7 +136,7 @@ Controls how far voxels can be displaced. This value is in **normalized coordina
 | `0.2` | Medium deformations (~6 voxels at 64³) | **Recommended default** |
 | `0.4` | Large deformations (~13 voxels at 64³) | Aggressive deformations |
 
-> **Important**: The model's `max_disp` in `models.py` (the `tanh` scaling) should match the dataset's `max_disp`. Both default to `0.2`.
+> **Important**: The model's `max_disp` in `models/globalnet3d.py` (the `tanh` scaling) should match the dataset's `max_disp`. Both default to `0.2`.
 
 #### `cp_spacing` (Control Point Spacing)
 

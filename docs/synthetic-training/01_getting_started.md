@@ -114,8 +114,17 @@ Before diving into training, familiarize yourself with the project structure:
 ```
 USRegistrator/
 ├── train.py                  # Main training entry-point
-├── models.py                 # Registration model definitions
-├── datasets.py               # Dataset generators & registry
+├── models/                   # Registration models (modular)
+│   ├── __init__.py           # Registry & re-exports
+│   ├── registry.py           # MODEL_REGISTRY, register_model, build_model
+│   ├── globalnet3d.py        # GlobalNet3D
+│   ├── localnet3d.py         # LocalNet3D
+│   └── unetreg3d.py          # UNetReg3D
+├── datasets/                 # Dataset generators (modular)
+│   ├── __init__.py           # Registry & re-exports
+│   ├── registry.py           # DATASET_REGISTRY, register_dataset, build_dataset
+│   ├── synthetic_ellipsoids.py  # Ellipsoid generator & MONAI wrapper
+│   └── deepreg_synthetic.py     # DeepReg-style DVF generator
 ├── losses/                   # Loss functions (modular)
 │   ├── __init__.py
 │   ├── utils.py              # Registry & helpers

@@ -18,7 +18,7 @@ This guide explains how to add your own registration model to USRegistrator usin
 
 ## 1. Architecture Overview
 
-USRegistrator uses a **registry pattern** for models. All models live in `models.py` and are registered into a global dictionary:
+USRegistrator uses a **registry pattern** for models. Each model lives in its own file inside the `models/` package and is registered into a global dictionary:
 
 ```python
 MODEL_REGISTRY: Dict[str, Callable[..., nn.Module]] = {}
@@ -128,7 +128,7 @@ class MyRegNet(nn.Module):
 ### Step 2: Register It
 
 ```python
-from models import register_model
+from models.registry import register_model
 
 @register_model("myregnet")
 def create_myregnet(
@@ -140,9 +140,9 @@ def create_myregnet(
     return MyRegNet(image_size=image_size, num_features=num_features)
 ```
 
-### Step 3: Add It to `models.py`
+### Step 3: Add It to the `models/` Package
 
-Place your class definition and factory function in `models.py` (or create a `models/` package — see [Tips](#7-tips--best-practices) below).
+Create a new file `models/myregnet.py` with your class definition and factory function, then import it in `models/__init__.py` to trigger registration.
 
 ---
 
@@ -189,7 +189,7 @@ All keys except `name` are forwarded to your factory function. The `image_size` 
 Here's a fully working example of a simplified VoxelMorph-style architecture:
 
 ```python
-# Add this to models.py
+# Save this as models/voxelmorph.py
 
 import torch
 from torch import nn
@@ -333,26 +333,24 @@ Don't implement your own warping — MONAI's `Warp` module handles edge cases (p
 | `localnet3d` | `LocalNet3D` | MONAI LocalNet — local deformable only |
 | `unetreg3d` | `UNetReg3D` | Standard UNet encoder-decoder for DDF prediction |
 
-### Organizing Many Models
+### Adding New Models to the Package
 
-If you have many models, consider converting `models.py` to a package:
+The `models/` package is already organized as individual files. To add a new model:
 
-```
-models/
-├── __init__.py           # import + re-export all models
-├── globalnet.py
-├── localnet.py
-├── unet.py
-└── my_custom_model.py
-```
-
-In `__init__.py`, import everything to trigger registration:
+1. Create `models/my_custom_model.py` with the class and `@register_model("my_model")` factory
+2. Import it in `models/__init__.py` to trigger registration:
 
 ```python
-from .globalnet import *
-from .localnet import *
-from .unet import *
-from .my_custom_model import *
+# In models/__init__.py, add:
+from . import my_custom_model
+from .my_custom_model import MyCustomModel, create_my_custom_model
+```
+
+This automatically makes `my_model` available via YAML config:
+
+```yaml
+model:
+  name: my_model
 ```
 
 ---

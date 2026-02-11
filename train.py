@@ -21,7 +21,7 @@ import wandb
 
 from datasets import build_dataset
 from models import build_model
-from usregistrator.losses import build_loss
+from losses import build_loss
 from metrics import METRICS
 
 

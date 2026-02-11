@@ -247,7 +247,7 @@ python train.py --config configs/deepreg_synth.yaml
    - Fix: Increase `dvf_weight` from 0.1 to 0.5 or 1.0
    
 2. **`max_disp` mismatch** — model's tanh scaling doesn't match dataset
-   - Verify: model uses `max_disp = 0.2` (in `models.py`) matching dataset's `max_disp: 0.2`
+   - Verify: model uses `max_disp = 0.2` (in `models/globalnet3d.py`) matching dataset's `max_disp: 0.2`
    
 3. **Learning rate too low** — model converges too slowly
    - Fix: Try `lr: 5e-4` (but watch for instability)
